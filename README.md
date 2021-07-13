@@ -1,5 +1,3 @@
-# spring-boot-simple2
-
 
 ## Garage Api
 
