@@ -41,7 +41,7 @@ public class GarageController {
 
 	@DeleteMapping(path = "/leave/{parkingSlotNumber}")
 	public ResponseEntity<?> leaveByParkingSpot(@PathVariable Integer parkingSlotNumber) {
-		service.unParkVehicle(level.findVehicleBySlotNumber(parkingSpotNumber));
+		service.unParkVehicle(level.findVehicleBySlotNumber(parkingSlotNumber));
 		return ResponseEntity.noContent().build();
 	}
  
