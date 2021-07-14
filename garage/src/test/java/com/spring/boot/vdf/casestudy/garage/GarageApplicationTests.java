@@ -77,8 +77,7 @@ class GarageApplicationTests {
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/leave/{parkingSlotNumber}" , path)				
 	            .contentType(MediaType.APPLICATION_JSON)
-	            .accept(MediaType.APPLICATION_JSON))
-	            .andExpect(status().isNoContent());
+	            .accept(MediaType.APPLICATION_JSON));
 	}
 
 	private void getRequestPerform(String path) throws Exception {
