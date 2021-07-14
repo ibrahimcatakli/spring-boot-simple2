@@ -1,11 +1,9 @@
 package com.spring.boot.vdf.casestudy.garage;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -14,11 +12,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.spring.boot.vdf.casestudy.garage.controller.GarageController;
 import com.spring.boot.vdf.casestudy.garage.domain.Jeep;
 import com.spring.boot.vdf.casestudy.garage.domain.Vehicle;
-import com.spring.boot.vdf.casestudy.garage.domain.VehicleInput;
 import org.springframework.http.MediaType;
 import org.springframework.http.HttpHeaders;
 
@@ -49,9 +47,9 @@ class GarageApplicationTests {
 		bookInJson = "{ \"registrationNumber\": \"34-HBO-2020\", \"vehicleType\": \"Truck\",  \"color\": \"Black\" }";
 		postRequestPerform(bookInJson);
 
-		bookInJson = "{ \"leave\": \"3\" }";
+		int slot = 3;
 
-		deleteRequestPerform(bookInJson);
+		deleteRequestPerform(slot);
 
 	}
 
@@ -75,11 +73,12 @@ class GarageApplicationTests {
 				.andDo(print()).andExpect(status().isOk());
 	}
 
-	private void deleteRequestPerform(String bookInJson) throws Exception {
-		this.mockMvc
-				.perform(delete("/api").accept(MediaType.APPLICATION_JSON).content(bookInJson)
-						.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
-				.andDo(print()).andExpect(status().isNoContent());
+	private void deleteRequestPerform(int path) throws Exception {
+	
+		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/leave/{parkingSlotNumber}" , path)				
+	            .contentType(MediaType.APPLICATION_JSON)
+	            .accept(MediaType.APPLICATION_JSON))
+	            .andExpect(status().isNoContent());
 	}
 
 	private void getRequestPerform(String path) throws Exception {
